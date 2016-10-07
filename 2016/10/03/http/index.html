@@ -1,0 +1,602 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="HTTP - 图解HTTP学习笔记(1)," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="TCP/IPTCP/IP分为应用层，传输层，网络层和链路层。
+应用层：应用层定义了运行在不同端系统上的应用程序进程如何相互传递报文。包含HTTP协议,FTP协议,SMTP协议,SNMP协议,Telnet协议以及DNS服务。
+传输层：传输层提供处于网络连接中的两台计算机之间的数据传输。包括协议TCP以及UDP。
+网络层：网络层负责处理数据包。规定了通过怎样的途径传送数据包（遵守IP协议）。
+链路层：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="图解HTTP学习笔记（1）">
+<meta property="og:url" content="https://shuhai.github.io/2016/10/03/http/index.html">
+<meta property="og:site_name" content="小羊的树海">
+<meta property="og:description" content="TCP/IPTCP/IP分为应用层，传输层，网络层和链路层。
+应用层：应用层定义了运行在不同端系统上的应用程序进程如何相互传递报文。包含HTTP协议,FTP协议,SMTP协议,SNMP协议,Telnet协议以及DNS服务。
+传输层：传输层提供处于网络连接中的两台计算机之间的数据传输。包括协议TCP以及UDP。
+网络层：网络层负责处理数据包。规定了通过怎样的途径传送数据包（遵守IP协议）。
+链路层：">
+<meta property="og:updated_time" content="2016-10-07T01:17:48.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="图解HTTP学习笔记（1）">
+<meta name="twitter:description" content="TCP/IPTCP/IP分为应用层，传输层，网络层和链路层。
+应用层：应用层定义了运行在不同端系统上的应用程序进程如何相互传递报文。包含HTTP协议,FTP协议,SMTP协议,SNMP协议,Telnet协议以及DNS服务。
+传输层：传输层提供处于网络连接中的两台计算机之间的数据传输。包括协议TCP以及UDP。
+网络层：网络层负责处理数据包。规定了通过怎样的途径传送数据包（遵守IP协议）。
+链路层：">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="https://shuhai.github.io/2016/10/03/http/"/>
+
+  <title> 图解HTTP学习笔记（1） | 小羊的树海 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">小羊的树海</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                图解HTTP学习笔记（1）
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-03T13:00:00+08:00" content="2016-10-03">
+              2016-10-03
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="TCP-IP"><a href="#TCP-IP" class="headerlink" title="TCP/IP"></a>TCP/IP</h2><p>TCP/IP分为应用层，传输层，网络层和链路层。</p>
+<h5 id="应用层："><a href="#应用层：" class="headerlink" title="应用层："></a>应用层：</h5><p>应用层定义了运行在不同端系统上的应用程序进程如何相互传递报文。<br>包含HTTP协议,FTP协议,SMTP协议,SNMP协议,Telnet协议以及DNS服务。</p>
+<h5 id="传输层："><a href="#传输层：" class="headerlink" title="传输层："></a>传输层：</h5><p>传输层提供处于网络连接中的两台计算机之间的数据传输。包括协议TCP以及UDP。</p>
+<h5 id="网络层："><a href="#网络层：" class="headerlink" title="网络层："></a>网络层：</h5><p>网络层负责处理数据包。规定了通过怎样的途径传送数据包（遵守IP协议）。</p>
+<h5 id="链路层："><a href="#链路层：" class="headerlink" title="链路层："></a>链路层：</h5><p>链路层指代连接网络的硬件部分。</p>
+<p>在TCP/IP的通信数据流中，数据从客户端到服务器要经过的过程如下：<br>HTTP客户端（应用层）– TCP(传输层) – IP(网络层) – 物理网络（链路层） 之后再倒过来传到服务器端的HTTP服务器之中。</p>
+<h3 id="解读与HTTP密切相关的协议"><a href="#解读与HTTP密切相关的协议" class="headerlink" title="解读与HTTP密切相关的协议"></a>解读与HTTP密切相关的协议</h3><p>在http生成目标Web服务器的HTTP请求报文之后，TCP协议将HTTP请求报文分割成报文段，按序号分成多个报文段后经过三次握手确保可靠传输。之后IP协议搜索到对方地址，一边中转一边传送。</p>
+<h5 id="负责传输的IP协议"><a href="#负责传输的IP协议" class="headerlink" title="负责传输的IP协议"></a>负责传输的IP协议</h5><p>IP(Internet Protocol)协议位于网络层。几乎所有使用网络的系统都会用IP协议。主要作用是将各种数据包传送给对方。为了确保传送数据需要满足各种条件，其中最重要的两个是IP地址和MAC地址。</p>
+<p>IP地址指明了节点被分配到的地址，MAC地址是指网卡所属的固定地址。IP地址可以更换，但MAC地址基本不会改变。</p>
+<p>IP间的通信依赖MAC地址，利用ARP协议（Address Resolution Protocol） 可以解析地址，根据通信方IP地址反查出对应的MAC地址。</p>
+<h5 id="确保可靠性的TCP协议"><a href="#确保可靠性的TCP协议" class="headerlink" title="确保可靠性的TCP协议"></a>确保可靠性的TCP协议</h5><p>TCP协议这一层会把大数据分割传送。为了确保数据准确到达，采取三次握手策略。</p>
+<p>三次握手：发送端首先发送一个带SYN标志的数据包给对方。对方接收之后回传一个带有SYN/ACK标志的数据包表示确认。最后发送方再回传一个带ACK标志的数据包表示握手结束。若过程中出现问题中断，TCP协议会再次以相同顺序发送数据。</p>
+<h5 id="负责域名解析的DNS服务"><a href="#负责域名解析的DNS服务" class="headerlink" title="负责域名解析的DNS服务"></a>负责域名解析的DNS服务</h5><p>DNS协议提供域名查找IP地址，或者通过IP地址逆向反查域名的服务。</p>
+<h3 id="URI和URL"><a href="#URI和URL" class="headerlink" title="URI和URL"></a>URI和URL</h3><p>URI(Uniform Resource Identifier),统一资源标识符。</p>
+<p>URL(Uniform Resource Locator),统一资源定位符。</p>
+<p>URI用字符串标识某一互联网资源,ULR则表示资源的地点，是URI的子集。</p>
+<p>一个绝对URI格式如下: <a href="http://user:pass@www.shuhai.com:80/document/hello.html?uid=2#ch1" target="_blank" rel="external">http://user:pass@www.shuhai.com:80/document/hello.html?uid=2#ch1</a></p>
+<p>http是协议方案，user:pass是从服务器端获取信息需要的登录信息（可选项），后面的网址是服务器地址，:80为端口号，后面的路径是服务器文件路径，uid=2为查询字符串（可选）,最后的ch1为片段标识符（可选）</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/HTTP-图解HTTP学习笔记-1/" rel="tag">#HTTP - 图解HTTP学习笔记(1)</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/10/07/http2/" rel="prev" title="图解HTTP学习笔记（2）">
+                图解HTTP学习笔记（2） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpeg"
+               alt="Shuhai" />
+          <p class="site-author-name" itemprop="name">Shuhai</p>
+          <p class="site-description motion-element" itemprop="description">一只安静的小羊</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">2</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/ShuHai" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP-IP"><span class="nav-number">1.</span> <span class="nav-text">TCP/IP</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#应用层："><span class="nav-number">1.0.0.1.</span> <span class="nav-text">应用层：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#传输层："><span class="nav-number">1.0.0.2.</span> <span class="nav-text">传输层：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#网络层："><span class="nav-number">1.0.0.3.</span> <span class="nav-text">网络层：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#链路层："><span class="nav-number">1.0.0.4.</span> <span class="nav-text">链路层：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解读与HTTP密切相关的协议"><span class="nav-number">1.1.</span> <span class="nav-text">解读与HTTP密切相关的协议</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#负责传输的IP协议"><span class="nav-number">1.1.0.1.</span> <span class="nav-text">负责传输的IP协议</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#确保可靠性的TCP协议"><span class="nav-number">1.1.0.2.</span> <span class="nav-text">确保可靠性的TCP协议</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#负责域名解析的DNS服务"><span class="nav-number">1.1.0.3.</span> <span class="nav-text">负责域名解析的DNS服务</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#URI和URL"><span class="nav-number">1.2.</span> <span class="nav-text">URI和URL</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shuhai</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
