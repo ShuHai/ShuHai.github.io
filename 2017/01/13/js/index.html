@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="JavaScript - 你不知道的js学习笔记," />
 
 
 
@@ -84,15 +84,16 @@
 
 
 
-<meta name="description" content="一只安静的小羊">
-<meta property="og:type" content="website">
-<meta property="og:title" content="小羊的树海">
-<meta property="og:url" content="https://shuhai.github.io/index.html">
+<meta name="description" content="第一部分 作用域和闭包第一章 作用域是什么LHS,RHS : JS赋值操作的左侧查询和右侧查询,RHS只是确认变量没有发生变化，而LHS的目的在于赋值。e.g,console.log(a);这里对a的操作是RHS,因为他没有发生变化。let a = 2;这里对a的操作是LHS。RHS如果找不到变量会抛出ReferenceError的异常，LHS在非严格模式下则会创建一个该名称变量。如果进行不合理操">
+<meta property="og:type" content="article">
+<meta property="og:title" content="你不知道的js学习笔记">
+<meta property="og:url" content="https://shuhai.github.io/2017/01/13/js/index.html">
 <meta property="og:site_name" content="小羊的树海">
-<meta property="og:description" content="一只安静的小羊">
+<meta property="og:description" content="第一部分 作用域和闭包第一章 作用域是什么LHS,RHS : JS赋值操作的左侧查询和右侧查询,RHS只是确认变量没有发生变化，而LHS的目的在于赋值。e.g,console.log(a);这里对a的操作是RHS,因为他没有发生变化。let a = 2;这里对a的操作是LHS。RHS如果找不到变量会抛出ReferenceError的异常，LHS在非严格模式下则会创建一个该名称变量。如果进行不合理操">
+<meta property="og:updated_time" content="2017-01-13T11:32:14.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="小羊的树海">
-<meta name="twitter:description" content="一只安静的小羊">
+<meta name="twitter:title" content="你不知道的js学习笔记">
+<meta name="twitter:description" content="第一部分 作用域和闭包第一章 作用域是什么LHS,RHS : JS赋值操作的左侧查询和右侧查询,RHS只是确认变量没有发生变化，而LHS的目的在于赋值。e.g,console.log(a);这里对a的操作是RHS,因为他没有发生变化。let a = 2;这里对a的操作是LHS。RHS如果找不到变量会抛出ReferenceError的异常，LHS在非严格模式下则会创建一个该名称变量。如果进行不合理操">
 
 
 
@@ -113,9 +114,9 @@
 
 
 
-  <link rel="canonical" href="https://shuhai.github.io/"/>
+  <link rel="canonical" href="https://shuhai.github.io/2017/01/13/js/"/>
 
-  <title> 小羊的树海 </title>
+  <title> 你不知道的js学习笔记 | 小羊的树海 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -136,9 +137,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left 
-   page-home 
- ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -215,9 +214,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
   
@@ -237,10 +236,7 @@
             
             
               
-                
-                <a class="post-title-link" href="/2017/01/13/js/" itemprop="url">
-                  你不知道的js学习笔记
-                </a>
+                你不知道的js学习笔记
               
             
           </h1>
@@ -280,9 +276,7 @@
       
 
       
-        
-          
-            <h2 id="第一部分-作用域和闭包"><a href="#第一部分-作用域和闭包" class="headerlink" title="第一部分 作用域和闭包"></a>第一部分 作用域和闭包</h2><h3 id="第一章-作用域是什么"><a href="#第一章-作用域是什么" class="headerlink" title="第一章 作用域是什么"></a>第一章 作用域是什么</h3><p>LHS,RHS : JS赋值操作的左侧查询和右侧查询,RHS只是确认变量没有发生变化，而LHS的目的在于赋值。e.g,console.log(a);这里对a的操作是RHS,因为他没有发生变化。let a = 2;这里对a的操作是LHS。RHS如果找不到变量会抛出ReferenceError的异常，LHS在非严格模式下则会创建一个该名称变量。如果进行不合理操作则会抛出typeError</p>
+        <h2 id="第一部分-作用域和闭包"><a href="#第一部分-作用域和闭包" class="headerlink" title="第一部分 作用域和闭包"></a>第一部分 作用域和闭包</h2><h3 id="第一章-作用域是什么"><a href="#第一章-作用域是什么" class="headerlink" title="第一章 作用域是什么"></a>第一章 作用域是什么</h3><p>LHS,RHS : JS赋值操作的左侧查询和右侧查询,RHS只是确认变量没有发生变化，而LHS的目的在于赋值。e.g,console.log(a);这里对a的操作是RHS,因为他没有发生变化。let a = 2;这里对a的操作是LHS。RHS如果找不到变量会抛出ReferenceError的异常，LHS在非严格模式下则会创建一个该名称变量。如果进行不合理操作则会抛出typeError</p>
 <h3 id="第二章-词法作用域"><a href="#第二章-词法作用域" class="headerlink" title="第二章 词法作用域"></a>第二章 词法作用域</h3><p>利用eval可以欺骗词法作用域。使用with可以快速创建对象。如果引擎在代码中发现了eval或with,他在词法分析阶段无法明确知道eval接收的代码，导致其放弃对整段代码进行性能优化。</p>
 <h3 id="第三章-函数作用域和块作用域"><a href="#第三章-函数作用域和块作用域" class="headerlink" title="第三章 函数作用域和块作用域"></a>第三章 函数作用域和块作用域</h3><p>我们通过声明一个名字独特的对象，来当做库的命名空间，所有需要暴露给外界的功能都会变成这个对象（命名空间）的属性。下面是例子<br><br>    <code>var objectLibrary = {
       variableA: &#39;testA&#39;,
@@ -346,156 +340,59 @@
  console.log(obj1.a);
  console.log(baz.a);</code></p>
 
-          
+      
+    </div>
+
+    <div>
+      
         
+
       
     </div>
 
     <div>
       
-    </div>
+        
 
-    <div>
       
     </div>
 
     <footer class="post-footer">
       
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/10/03/http/" itemprop="url">
-                  图解HTTP学习笔记
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-10-03T13:00:00+08:00" content="2016-10-03">
-              2016-10-03
-            </time>
-          </span>
-
+        <div class="post-tags">
           
-
-          
-            
-          
-
-          
-
-          
-          
-
+            <a href="/tags/JavaScript-你不知道的js学习笔记/" rel="tag">#JavaScript - 你不知道的js学习笔记</a>
           
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <h2 id="TCP-IP"><a href="#TCP-IP" class="headerlink" title="TCP/IP"></a>TCP/IP</h2><p>TCP/IP分为应用层，传输层，网络层和链路层。</p>
-<h5 id="应用层："><a href="#应用层：" class="headerlink" title="应用层："></a>应用层：</h5><p>应用层定义了运行在不同端系统上的应用程序进程如何相互传递报文。<br>包含HTTP协议,FTP协议,SMTP协议,SNMP协议,Telnet协议以及DNS服务。</p>
-<h5 id="传输层："><a href="#传输层：" class="headerlink" title="传输层："></a>传输层：</h5><p>传输层提供处于网络连接中的两台计算机之间的数据传输。包括协议TCP以及UDP。</p>
-<h5 id="网络层："><a href="#网络层：" class="headerlink" title="网络层："></a>网络层：</h5><p>网络层负责处理数据包。规定了通过怎样的途径传送数据包（遵守IP协议）。</p>
-<h5 id="链路层："><a href="#链路层：" class="headerlink" title="链路层："></a>链路层：</h5><p>链路层指代连接网络的硬件部分。</p>
-<p>在TCP/IP的通信数据流中，数据从客户端到服务器要经过的过程如下：<br>HTTP客户端（应用层）– TCP(传输层) – IP(网络层) – 物理网络（链路层） 之后再倒过来传到服务器端的HTTP服务器之中。</p>
-<h3 id="解读与HTTP密切相关的协议"><a href="#解读与HTTP密切相关的协议" class="headerlink" title="解读与HTTP密切相关的协议"></a>解读与HTTP密切相关的协议</h3><p>在http生成目标Web服务器的HTTP请求报文之后，TCP协议将HTTP请求报文分割成报文段，按序号分成多个报文段后经过三次握手确保可靠传输。之后IP协议搜索到对方地址，一边中转一边传送。</p>
-<h5 id="负责传输的IP协议"><a href="#负责传输的IP协议" class="headerlink" title="负责传输的IP协议"></a>负责传输的IP协议</h5><p>IP(Internet Protocol)协议位于网络层。几乎所有使用网络的系统都会用IP协议。主要作用是将各种数据包传送给对方。为了确保传送数据需要满足各种条件，其中最重要的两个是IP地址和MAC地址。</p>
-<p>IP地址指明了节点被分配到的地址，MAC地址是指网卡所属的固定地址。IP地址可以更换，但MAC地址基本不会改变。</p>
-<p>IP间的通信依赖MAC地址，利用ARP协议（Address Resolution Protocol） 可以解析地址，根据通信方IP地址反查出对应的MAC地址。</p>
-<h5 id="确保可靠性的TCP协议"><a href="#确保可靠性的TCP协议" class="headerlink" title="确保可靠性的TCP协议"></a>确保可靠性的TCP协议</h5><p>TCP协议这一层会把大数据分割传送。为了确保数据准确到达，采取三次握手策略。</p>
-<p>三次握手：发送端首先发送一个带SYN标志的数据包给对方。对方接收之后回传一个带有SYN/ACK标志的数据包表示确认。最后发送方再回传一个带ACK标志的数据包表示握手结束。若过程中出现问题中断，TCP协议会再次以相同顺序发送数据。</p>
-<h5 id="负责域名解析的DNS服务"><a href="#负责域名解析的DNS服务" class="headerlink" title="负责域名解析的DNS服务"></a>负责域名解析的DNS服务</h5><p>DNS协议提供域名查找IP地址，或者通过IP地址逆向反查域名的服务。</p>
-<h3 id="URI和URL"><a href="#URI和URL" class="headerlink" title="URI和URL"></a>URI和URL</h3><p>URI(Uniform Resource Identifier),统一资源标识符。</p>
-<p>URL(Uniform Resource Locator),统一资源定位符。</p>
-<p>URI用字符串标识某一互联网资源,ULR则表示资源的地点，是URI的子集。</p>
-<p>一个绝对URI格式如下: <a href="http://user:pass@www.shuhai.com:80/document/hello.html?uid=2#ch1" target="_blank" rel="external">http://user:pass@www.shuhai.com:80/document/hello.html?uid=2#ch1</a></p>
-<p>http是协议方案，user:pass是从服务器端获取信息需要的登录信息（可选项），后面的网址是服务器地址，:80为端口号，后面的路径是服务器文件路径，uid=2为查询字符串（可选）,最后的ch1为片段标识符（可选）</p>
-<h3 id="HTTP是不保存状态的协议"><a href="#HTTP是不保存状态的协议" class="headerlink" title="HTTP是不保存状态的协议"></a>HTTP是不保存状态的协议</h3><p>HTTP是无状态协议，为了管理状态引入了COOKIE技术。</p>
-<p>HTTP常见方法：GET,POST,PUT,HEAD,DELETE</p>
-<p>HTTP1.1加入:OPTIONS,TRACE,CONNECT</p>
-<p>常见状态码:200 成功，3XX 各种重定向，如302临时重定向，4XX 客户端错误，如404服务器找不到请求资源，5XX服务器错误</p>
-<h3 id="HTTP报文"><a href="#HTTP报文" class="headerlink" title="HTTP报文"></a>HTTP报文</h3><p>报文分为首部和主体两部分，首部包含客户端服务器处理时候的关键信息，主体则包含用户资源信息。</p>
-<h3 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h3><p>HTTP的不足:通信使用明文，内容可能被窃听。不验证通信方身份，可能被伪装，无法证明报文完整性，可能被篡改。</p>
-<p>由于他的不足于是有了HTTPS,HTTPS = HTTP + 加密 + 认证 + 完整性保护。HTTPS并非新协议，只是通信接口部分用SSL和TLS代替而已。</p>
-<h3 id="针对WEB的攻击技术"><a href="#针对WEB的攻击技术" class="headerlink" title="针对WEB的攻击技术"></a>针对WEB的攻击技术</h3><p>跨站脚本攻击（XSS）指利用嵌入脚本骗取用户信息，窃取COOKIE值发送恶意请求的行为。解决方法:对输入数据进行再编码，将其转义过滤后再输出。</p>
-<p>SQL注入攻击指通过非法SQL窃取数据库数据的行为。解决方法：不要动态拼接SQL字符串，跟防止XSS攻击一样，尽量过滤用户输入数据。</p>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/03/http/" rel="next" title="图解HTTP学习笔记">
+                <i class="fa fa-chevron-left"></i> 图解HTTP学习笔记
+              </a>
+            
+          </div>
 
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
       
 
       
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -503,6 +400,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -522,8 +423,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.jpeg"
@@ -577,6 +487,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一部分-作用域和闭包"><span class="nav-number">1.</span> <span class="nav-text">第一部分 作用域和闭包</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#第一章-作用域是什么"><span class="nav-number">1.1.</span> <span class="nav-text">第一章 作用域是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二章-词法作用域"><span class="nav-number">1.2.</span> <span class="nav-text">第二章 词法作用域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第三章-函数作用域和块作用域"><span class="nav-number">1.3.</span> <span class="nav-text">第三章 函数作用域和块作用域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第四章-提升"><span class="nav-number">1.4.</span> <span class="nav-text">第四章 提升</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第五章-作用域闭包"><span class="nav-number">1.5.</span> <span class="nav-text">第五章 作用域闭包</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二部分-this和对象原型"><span class="nav-number">2.</span> <span class="nav-text">第二部分 this和对象原型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#第一章-关于this"><span class="nav-number">2.1.</span> <span class="nav-text">第一章 关于this</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -680,6 +601,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 
