@@ -281,72 +281,15 @@
 
       
         
-          
-            <h2 id="第一部分-作用域和闭包"><a href="#第一部分-作用域和闭包" class="headerlink" title="第一部分 作用域和闭包"></a>第一部分 作用域和闭包</h2><h3 id="第一章-作用域是什么"><a href="#第一章-作用域是什么" class="headerlink" title="第一章 作用域是什么"></a>第一章 作用域是什么</h3><p>LHS,RHS : JS赋值操作的左侧查询和右侧查询,RHS只是确认变量没有发生变化，而LHS的目的在于赋值。e.g,console.log(a);这里对a的操作是RHS,因为他没有发生变化。let a = 2;这里对a的操作是LHS。RHS如果找不到变量会抛出ReferenceError的异常，LHS在非严格模式下则会创建一个该名称变量。如果进行不合理操作则会抛出typeError</p>
-<h3 id="第二章-词法作用域"><a href="#第二章-词法作用域" class="headerlink" title="第二章 词法作用域"></a>第二章 词法作用域</h3><p>利用eval可以欺骗词法作用域。使用with可以快速创建对象。如果引擎在代码中发现了eval或with,他在词法分析阶段无法明确知道eval接收的代码，导致其放弃对整段代码进行性能优化。</p>
-<h3 id="第三章-函数作用域和块作用域"><a href="#第三章-函数作用域和块作用域" class="headerlink" title="第三章 函数作用域和块作用域"></a>第三章 函数作用域和块作用域</h3><p>我们通过声明一个名字独特的对象，来当做库的命名空间，所有需要暴露给外界的功能都会变成这个对象（命名空间）的属性。下面是例子<br><br>    <code>var objectLibrary = {
-      variableA: &#39;testA&#39;,
-      doSomething: function () {
-        console.log(&#39;aaaaa&#39;)
-      }
-    }</code><br><br>我们利用立即执行的函数来避免污染作用域。例如<br><br>    <code>function foo() {
-      var a =3;
-      console.log(a);
-    }</code><br><br>匿名函数的缺点:在栈追踪中没有有意义的函数名使调试困难，只能使用过期的arguments.callee来引用自身。不利于代码的可读性和可理解性。所以始终给函数命名是一个最佳实践。<br><br>IIFE:立即执行函数，通常是一个匿名函数表达式。有两种写法<br><br>    <code>(function foo() {})()
-    (function foo() {} ())</code><br> 进阶用法是把他们当函数调用并传参进入<br><br>    <code>var a = 2;
-    (function IIFE(global) {console.log(global.a)})
-    (window);</code><br><br>冷知识，在没有let之前，catch可以创建块级作用域<br></p>
-<h3 id="第四章-提升"><a href="#第四章-提升" class="headerlink" title="第四章 提升"></a>第四章 提升</h3><p>a = 2; var a;console.log(a); 此时会输出2,原因就在于变量的提升。先console.log(a); var a = 2;则会输出undefined。<br>当我们看到var a = 2;JS会把他看成两步操作，var a;a = 2;第一个定义会在编译过程完成,第二个赋值声明会留在原地等待执行。所以，在变量声明赋值过程中，先声明,后赋值。<br><br>在函数声明过程中，函数及其内部定义内容会集体提前。但是你对一个变量赋值给他一个函数时，依然是变量先声明，到位置才赋值给他函数。比如<br>    <code>foo();bar();var foo = function bar() {};</code><br> <br>这段代码会被实际解析成<br><br>    <code>var foo; foo(); bar(); foo = function() {
-      var bar = self
-    }</code><br><br>函数声明会提升到普通变量之前，因此定义一个函数foo()以后再var foo，这个变量声明会被忽略掉。尽可能避免在块内部声明函数<br></p>
-<h3 id="第五章-作用域闭包"><a href="#第五章-作用域闭包" class="headerlink" title="第五章 作用域闭包"></a>第五章 作用域闭包</h3><p>当函数可以记住并访问所在的词法作用域的时候,就产生了闭包。函数在调用之后本来应该销毁，但是由于外部对函数内部的引用导致其无法销毁，这时候就产生了闭包。来一个最简单的例子。<br><br>    <code>function foo() {
-      var a = 2;
-      function bar() {console.log(a)}
-      return bar;
-    }
-    var baz = foo();
-    baz();</code><br> <br>这就是闭包的效果，bar这个函数在定义的词法作用域以外的地方被执行。又比如计时器。<br><br>   <code>function wait() {
-     var test = &#39;test&#39;;
-     setTimeout(function timer(){console.log(test)}, 1000)
-   }</code><br><br>由于计时器会持有对参数的引用，在第一次触发函数后他尼日不作用域不会消失，所以timer依旧保持着闭包。同理，事件监听器（比如jq的click触发一个函数），ajax请求等等使用了回调函数实际都是在使用闭包。下面是那个很经典的例子<br><br> <code>for(var i =1;i&lt;5;i++) {
-  setTimeout(function timer() {
-    console.log(i)
-  },1000)
- }</code><br> <br>上面的例子会输出五次5，如果想避免这种情况发生。要改成下面的样子<br><br> <code>for(var i =1;i&lt;5;i++) {
-   (function(i){
-     setTimeout(function timer() {
-       console.log(i)
-     },1000)
-   })(i)
- }</code></p>
-<h2 id="第二部分-this和对象原型"><a href="#第二部分-this和对象原型" class="headerlink" title="第二部分 this和对象原型"></a>第二部分 this和对象原型</h2><h3 id="第一章-关于this"><a href="#第一章-关于this" class="headerlink" title="第一章 关于this"></a>第一章 关于this</h3><p>this在任何情况下都不指向函数的词法作用域。<br>当我们在一个函数中使用了严格模式，默认的this指向不是全局对象而是undefined<br><br>  <code>function foo() {console.log(this.a)}
-  var a = 2;
-  foo(); //2</code></p>
-<p>  <code>function foo() {console.log(this.a)};
-  var obj = {a:2,foo:foo};
-  obj.foo(); //2</code><br><br>关于隐式绑定this丢失，回调，计时器会发生同样的问题，参数传递是一种隐式赋值<br><br>  <code>function foo() {console.log(this.a)};
-  var obj = {a:2,foo:foo};
-  obj.foo(); //2
-  var bar = obj.foo;
-  var a = &#39;global&#39;;
-  bar(); //global</code><br> <br>硬绑定:通过把apply包裹在一个函数内实现this不可换<br><br>  <code>function foo() {console.log(this.a)};
-  var obj = {a:2};
-  var bar = function(){foo.call(obj)}</code><br> <br>在es5硬绑定被封装成了bind函数<br><br> <code>function bind(fn,obj){
-   return funtion() {
-     return fn.apply(obj,arguments)
-   }
- }</code><br> <br>this的优先级（这段有争议还要好好理解一下）:是箭头函数优先级最高（但是他和其他规则有点不一样），然后是new出来的对象，然后是显示调用（bind硬绑定和call,apply这种普通的显示绑定），然后是隐式调用（比如在一个obj绑一个函数，里面用到了this），最后是默认this（一般是windows对象）<br><br> <code>function foo(arg) {
-   this.a = arg;
- }
- var obj1 = {};
- var bar = foo.bind(obj1);
- bar(2);
- console.log(obj1.a);
- var baz = new bar(3);
- console.log(obj1.a);
- console.log(baz.a);</code></p>
-
-          
+          <h2 id="第一部分-作用域和闭包"><a href="#第一部分-作用域和闭包" class="headerlink" title="第一部分 作用域和闭包"></a>第一部分 作用域和闭包</h2><h3 id="第一章-作用域是什么"><a href="#第一章-作用域是什么" class="headerlink" title="第一章 作用域是什么"></a>第一章 作用域是什么</h3><p>LHS,RHS : JS赋值操作的左侧查询和右侧查询,RHS只是确认变量没有发生变化，而LHS的目的在于赋值。</p>
+<p>e.g,console.log(a);这里对a的操作是RHS,因为他没有发生变化。</p>
+<p>let a = 2;这里对a的操作是LHS。</p>
+<p>RHS如果找不到变量会抛出ReferenceError的异常，LHS在非严格模式下则会创建一个该名称变量。如果进行不合理操作则会抛出typeError</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/01/13/js/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -437,36 +380,16 @@
 
       
         
-          
-            <h2 id="TCP-IP"><a href="#TCP-IP" class="headerlink" title="TCP/IP"></a>TCP/IP</h2><p>TCP/IP分为应用层，传输层，网络层和链路层。</p>
+          <h2 id="TCP-IP"><a href="#TCP-IP" class="headerlink" title="TCP/IP"></a>TCP/IP</h2><p>TCP/IP分为应用层，传输层，网络层和链路层。</p>
 <h5 id="应用层："><a href="#应用层：" class="headerlink" title="应用层："></a>应用层：</h5><p>应用层定义了运行在不同端系统上的应用程序进程如何相互传递报文。<br>包含HTTP协议,FTP协议,SMTP协议,SNMP协议,Telnet协议以及DNS服务。</p>
 <h5 id="传输层："><a href="#传输层：" class="headerlink" title="传输层："></a>传输层：</h5><p>传输层提供处于网络连接中的两台计算机之间的数据传输。包括协议TCP以及UDP。</p>
 <h5 id="网络层："><a href="#网络层：" class="headerlink" title="网络层："></a>网络层：</h5><p>网络层负责处理数据包。规定了通过怎样的途径传送数据包（遵守IP协议）。</p>
 <h5 id="链路层："><a href="#链路层：" class="headerlink" title="链路层："></a>链路层：</h5><p>链路层指代连接网络的硬件部分。</p>
-<p>在TCP/IP的通信数据流中，数据从客户端到服务器要经过的过程如下：<br>HTTP客户端（应用层）– TCP(传输层) – IP(网络层) – 物理网络（链路层） 之后再倒过来传到服务器端的HTTP服务器之中。</p>
-<h3 id="解读与HTTP密切相关的协议"><a href="#解读与HTTP密切相关的协议" class="headerlink" title="解读与HTTP密切相关的协议"></a>解读与HTTP密切相关的协议</h3><p>在http生成目标Web服务器的HTTP请求报文之后，TCP协议将HTTP请求报文分割成报文段，按序号分成多个报文段后经过三次握手确保可靠传输。之后IP协议搜索到对方地址，一边中转一边传送。</p>
-<h5 id="负责传输的IP协议"><a href="#负责传输的IP协议" class="headerlink" title="负责传输的IP协议"></a>负责传输的IP协议</h5><p>IP(Internet Protocol)协议位于网络层。几乎所有使用网络的系统都会用IP协议。主要作用是将各种数据包传送给对方。为了确保传送数据需要满足各种条件，其中最重要的两个是IP地址和MAC地址。</p>
-<p>IP地址指明了节点被分配到的地址，MAC地址是指网卡所属的固定地址。IP地址可以更换，但MAC地址基本不会改变。</p>
-<p>IP间的通信依赖MAC地址，利用ARP协议（Address Resolution Protocol） 可以解析地址，根据通信方IP地址反查出对应的MAC地址。</p>
-<h5 id="确保可靠性的TCP协议"><a href="#确保可靠性的TCP协议" class="headerlink" title="确保可靠性的TCP协议"></a>确保可靠性的TCP协议</h5><p>TCP协议这一层会把大数据分割传送。为了确保数据准确到达，采取三次握手策略。</p>
-<p>三次握手：发送端首先发送一个带SYN标志的数据包给对方。对方接收之后回传一个带有SYN/ACK标志的数据包表示确认。最后发送方再回传一个带ACK标志的数据包表示握手结束。若过程中出现问题中断，TCP协议会再次以相同顺序发送数据。</p>
-<h5 id="负责域名解析的DNS服务"><a href="#负责域名解析的DNS服务" class="headerlink" title="负责域名解析的DNS服务"></a>负责域名解析的DNS服务</h5><p>DNS协议提供域名查找IP地址，或者通过IP地址逆向反查域名的服务。</p>
-<h3 id="URI和URL"><a href="#URI和URL" class="headerlink" title="URI和URL"></a>URI和URL</h3><p>URI(Uniform Resource Identifier),统一资源标识符。</p>
-<p>URL(Uniform Resource Locator),统一资源定位符。</p>
-<p>URI用字符串标识某一互联网资源,ULR则表示资源的地点，是URI的子集。</p>
-<p>一个绝对URI格式如下: <a href="http://user:pass@www.shuhai.com:80/document/hello.html?uid=2#ch1" target="_blank" rel="external">http://user:pass@www.shuhai.com:80/document/hello.html?uid=2#ch1</a></p>
-<p>http是协议方案，user:pass是从服务器端获取信息需要的登录信息（可选项），后面的网址是服务器地址，:80为端口号，后面的路径是服务器文件路径，uid=2为查询字符串（可选）,最后的ch1为片段标识符（可选）</p>
-<h3 id="HTTP是不保存状态的协议"><a href="#HTTP是不保存状态的协议" class="headerlink" title="HTTP是不保存状态的协议"></a>HTTP是不保存状态的协议</h3><p>HTTP是无状态协议，为了管理状态引入了COOKIE技术。</p>
-<p>HTTP常见方法：GET,POST,PUT,HEAD,DELETE</p>
-<p>HTTP1.1加入:OPTIONS,TRACE,CONNECT</p>
-<p>常见状态码:200 成功，3XX 各种重定向，如302临时重定向，4XX 客户端错误，如404服务器找不到请求资源，5XX服务器错误</p>
-<h3 id="HTTP报文"><a href="#HTTP报文" class="headerlink" title="HTTP报文"></a>HTTP报文</h3><p>报文分为首部和主体两部分，首部包含客户端服务器处理时候的关键信息，主体则包含用户资源信息。</p>
-<h3 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h3><p>HTTP的不足:通信使用明文，内容可能被窃听。不验证通信方身份，可能被伪装，无法证明报文完整性，可能被篡改。</p>
-<p>由于他的不足于是有了HTTPS,HTTPS = HTTP + 加密 + 认证 + 完整性保护。HTTPS并非新协议，只是通信接口部分用SSL和TLS代替而已。</p>
-<h3 id="针对WEB的攻击技术"><a href="#针对WEB的攻击技术" class="headerlink" title="针对WEB的攻击技术"></a>针对WEB的攻击技术</h3><p>跨站脚本攻击（XSS）指利用嵌入脚本骗取用户信息，窃取COOKIE值发送恶意请求的行为。解决方法:对输入数据进行再编码，将其转义过滤后再输出。</p>
-<p>SQL注入攻击指通过非法SQL窃取数据库数据的行为。解决方法：不要动态拼接SQL字符串，跟防止XSS攻击一样，尽量过滤用户输入数据。</p>
-
-          
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/10/03/http/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
