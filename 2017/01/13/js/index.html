@@ -96,7 +96,7 @@ RHS如果找不到变量会抛出ReferenceError的异常，LHS在非严格模式
 e.g,console.log(a);这里对a的操作是RHS,因为他没有发生变化。
 let a = 2;这里对a的操作是LHS。
 RHS如果找不到变量会抛出ReferenceError的异常，LHS在非严格模式下则会创建一个该名称变量。如果进行不">
-<meta property="og:updated_time" content="2017-01-15T10:00:26.000Z">
+<meta property="og:updated_time" content="2017-01-15T10:07:29.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="你不知道的js学习笔记">
 <meta name="twitter:description" content="第一部分 作用域和闭包第一章 作用域是什么LHS,RHS : JS赋值操作的左侧查询和右侧查询,RHS只是确认变量没有发生变化，而LHS的目的在于赋值。
@@ -292,47 +292,35 @@ RHS如果找不到变量会抛出ReferenceError的异常，LHS在非严格模式
 <a id="more"></a>
 <h3 id="第二章-词法作用域"><a href="#第二章-词法作用域" class="headerlink" title="第二章 词法作用域"></a>第二章 词法作用域</h3><p>利用eval可以欺骗词法作用域。使用with可以快速创建对象。如果引擎在代码中发现了eval或with,他在词法分析阶段无法明确知道eval接收的代码，导致其放弃对整段代码进行性能优化。</p>
 <h3 id="第三章-函数作用域和块作用域"><a href="#第三章-函数作用域和块作用域" class="headerlink" title="第三章 函数作用域和块作用域"></a>第三章 函数作用域和块作用域</h3><p>我们通过声明一个名字独特的对象，来当做库的命名空间，所有需要暴露给外界的功能都会变成这个对象（命名空间）的属性。下面是例子</p>
-<pre><code>`
-var objectLibrary = {
+<pre><code>var objectLibrary = {
   variableA: &apos;testA&apos;,
   doSomething: function () {
     console.log(&apos;aaaaa&apos;)
   }
 }
-`
 </code></pre><p>匿名函数的缺点:在栈追踪中没有有意义的函数名使调试困难，只能使用过期的arguments.callee来引用自身。不利于代码的可读性和可理解性。所以始终给函数命名是一个最佳实践。<br><br>IIFE:立即执行函数，通常是一个匿名函数表达式。有两种写法<br></p>
-<pre><code>`
-(function foo() {})()
+<pre><code>(function foo() {})()
 (function foo() {} ())
-`
 </code></pre><p> 进阶用法是把他们当函数调用并传参进入<br></p>
-<pre><code>`
-var a = 2;
+<pre><code>var a = 2;
 (function IIFE(global) {console.log(global.a)})
 (window);
-`
 </code></pre><p><br>冷知识，在没有let之前，catch可以创建块级作用域<br></p>
 <h3 id="第四章-提升"><a href="#第四章-提升" class="headerlink" title="第四章 提升"></a>第四章 提升</h3><p>a = 2; var a;console.log(a); 此时会输出2,原因就在于变量的提升。先console.log(a); var a = 2;则会输出undefined。<br>当我们看到var a = 2;JS会把他看成两步操作，var a;a = 2;第一个定义会在编译过程完成,第二个赋值声明会留在原地等待执行。所以，在变量声明赋值过程中，先声明,后赋值。<br><br>在函数声明过程中，函数及其内部定义内容会集体提前。但是你对一个变量赋值给他一个函数时，依然是变量先声明，到位置才赋值给他函数。比如</p>
-<pre><code>`
-foo();bar();var foo = function bar() {};
-`
+<pre><code>foo();bar();var foo = function bar() {};
 </code></pre><p> <br>这段代码会被实际解析成<br></p>
-<pre><code>`
-var foo; foo(); bar(); foo = function() {
+<pre><code>var foo; foo(); bar(); foo = function() {
   var bar = self
 }
-`
 </code></pre><p><br>函数声明会提升到普通变量之前，因此定义一个函数foo()以后再var foo，这个变量声明会被忽略掉。尽可能避免在块内部声明函数<br></p>
 <h3 id="第五章-作用域闭包"><a href="#第五章-作用域闭包" class="headerlink" title="第五章 作用域闭包"></a>第五章 作用域闭包</h3><p>当函数可以记住并访问所在的词法作用域的时候,就产生了闭包。函数在调用之后本来应该销毁，但是由于外部对函数内部的引用导致其无法销毁，这时候就产生了闭包。来一个最简单的例子。<br></p>
-<pre><code>`
-function foo() {
+<pre><code>function foo() {
   var a = 2;
   function bar() {console.log(a)}
   return bar;
 }
 var baz = foo();
 baz();
-`
 </code></pre><p> <br>这就是闭包的效果，bar这个函数在定义的词法作用域以外的地方被执行。又比如计时器。</p>
    <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">function wait() &#123;</div><div class="line">  var test = &apos;test&apos;;</div><div class="line">  setTimeout(function timer()&#123;console.log(test)&#125;, 1000)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p><br>由于计时器会持有对参数的引用，在第一次触发函数后他尼日不作用域不会消失，所以timer依旧保持着闭包。同理，事件监听器（比如jq的click触发一个函数），ajax请求等等使用了回调函数实际都是在使用闭包。下面是那个很经典的例子<br></p>
